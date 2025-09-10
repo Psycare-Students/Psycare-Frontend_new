@@ -8,6 +8,7 @@ import ResourcesSection from '@/components/ResourcesSection';
 import CommunitySection from '@/components/CommunitySection';
 import AppointmentsSection from '@/components/AppointmentsSection';
 import AuthSection from '@/components/AuthSection';
+import heroBackground from '@/assets/hero-illustration.jpg';
 
 const Index = () => {
   useEffect(() => {
@@ -23,19 +24,33 @@ const Index = () => {
   }, []);
 
   return (
-    <main className="min-h-screen bg-background">
-      <Navigation />
-      <HeroSection />
-      <DashboardSection />
-      <AIChatSection />
-      <BookingSection />
-      <ResourcesSection />
-      <CommunitySection />
-      <AppointmentsSection />
-      <AuthSection />
+    <main 
+      className="min-h-screen relative"
+      style={{
+        backgroundImage: `url(${heroBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      {/* Background overlay for better readability */}
+      <div className="absolute inset-0 bg-background/60 backdrop-blur-[2px]" />
       
-      {/* Footer */}
-      <footer className="bg-gradient-to-r from-primary-soft/20 via-secondary-soft/20 to-accent-soft/20 py-12 border-t border-border/50">
+      {/* Content wrapper */}
+      <div className="relative z-10">
+        <Navigation />
+        <HeroSection />
+        <DashboardSection />
+        <AIChatSection />
+        <BookingSection />
+        <ResourcesSection />
+        <CommunitySection />
+        <AppointmentsSection />
+        <AuthSection />
+        
+        {/* Footer */}
+        <footer className="bg-gradient-to-r from-primary-soft/30 via-secondary-soft/30 to-accent-soft/30 backdrop-blur-sm py-12 border-t border-border/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8">
             <div className="space-y-4">
@@ -93,7 +108,8 @@ const Index = () => {
             </p>
           </div>
         </div>
-      </footer>
+        </footer>
+      </div>
     </main>
   );
 };
