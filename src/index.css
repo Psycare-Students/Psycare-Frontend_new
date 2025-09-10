@@ -2,41 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* PsyCare Design System - Soft, encouraging mental health theme */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Soft, soothing color palette */
+    --background: 240 25% 98%;
+    --foreground: 240 15% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 240 15% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 240 15% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary: Soft purple for mental wellness */
+    --primary: 260 55% 65%;
+    --primary-foreground: 0 0% 100%;
+    --primary-soft: 260 40% 85%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary: Calming blue */
+    --secondary: 210 60% 75%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-soft: 210 40% 90%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Accent: Encouraging green */
+    --accent: 150 50% 70%;
+    --accent-foreground: 0 0% 100%;
+    --accent-soft: 150 35% 90%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Tertiary: Warm coral for energy */
+    --tertiary: 15 85% 75%;
+    --tertiary-foreground: 0 0% 100%;
+    --tertiary-soft: 15 60% 90%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --muted: 240 15% 95%;
+    --muted-foreground: 240 10% 50%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --destructive: 0 70% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --radius: 0.5rem;
+    --border: 240 15% 88%;
+    --input: 240 15% 88%;
+    --ring: 260 55% 65%;
+
+    --radius: 0.75rem;
+
+    /* Gradients for mental wellness theme */
+    --gradient-primary: linear-gradient(135deg, hsl(260 55% 65%), hsl(280 50% 70%));
+    --gradient-secondary: linear-gradient(135deg, hsl(210 60% 75%), hsl(190 55% 80%));
+    --gradient-accent: linear-gradient(135deg, hsl(150 50% 70%), hsl(170 45% 75%));
+    --gradient-warm: linear-gradient(135deg, hsl(15 85% 75%), hsl(35 80% 80%));
+    --gradient-hero: linear-gradient(135deg, hsl(260 40% 85%), hsl(210 40% 90%), hsl(150 35% 90%));
+    
+    /* Shadows with color tints */
+    --shadow-soft: 0 4px 20px hsl(260 20% 70% / 0.15);
+    --shadow-medium: 0 8px 30px hsl(260 20% 60% / 0.2);
+    --shadow-glow: 0 0 30px hsl(260 55% 65% / 0.3);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,33 +82,41 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark mode with softer, warmer tones */
+    --background: 240 20% 8%;
+    --foreground: 240 10% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 240 15% 12%;
+    --card-foreground: 240 10% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 240 15% 12%;
+    --popover-foreground: 240 10% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 260 50% 70%;
+    --primary-foreground: 240 20% 8%;
+    --primary-soft: 260 30% 25%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 210 50% 65%;
+    --secondary-foreground: 240 20% 8%;
+    --secondary-soft: 210 30% 20%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 150 40% 60%;
+    --accent-foreground: 240 20% 8%;
+    --accent-soft: 150 25% 20%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --tertiary: 15 70% 65%;
+    --tertiary-foreground: 240 20% 8%;
+    --tertiary-soft: 15 40% 20%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --muted: 240 15% 15%;
+    --muted-foreground: 240 10% 65%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --destructive: 0 60% 55%;
+    --destructive-foreground: 240 10% 95%;
+
+    --border: 240 15% 20%;
+    --input: 240 15% 20%;
+    --ring: 260 50% 70%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -100,6 +134,6 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-poppins;
   }
 }
