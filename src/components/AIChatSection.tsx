@@ -1,7 +1,4 @@
 import { Send, Mic, Globe, Lightbulb, Heart, Shield, MessageCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 
 const AIChatSection = () => {
   const chatMessages = [
@@ -24,149 +21,144 @@ const AIChatSection = () => {
 
   const tips = [
     { icon: Heart, text: 'Take deep breaths', color: 'text-tertiary' },
-    { icon: Lightbulb, text: 'Try the 5-4-3-2-1 grounding technique', color: 'text-accent' },
+    { icon: Lightbulb, text: 'Try the 5-4-3-2-1 grounding technique', color: 'text-success' },
     { icon: Shield, text: 'Remember: You are safe and supported', color: 'text-primary' },
   ];
 
   return (
-    <section id="ai-chat" className="py-20 bg-gradient-to-b from-primary-soft/10 to-secondary-soft/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-3xl md:text-4xl font-bold font-poppins text-foreground mb-4">
+    <section id="ai-chat" className="py-10 bg-primary-soft">
+      <div className="container">
+        <div className="text-center mb-5 animate-fade-in">
+          <h2 className="display-4 fw-bold text-dark mb-4">
             AI-Powered Mental Health Support
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="lead text-muted-custom">
             Get instant, personalized support from our compassionate AI counselor, available 24/7
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="row g-4">
           {/* Chat Interface */}
-          <Card className="lg:col-span-2 shadow-medium hover:shadow-glow transition-all duration-300 animate-slide-in">
-            <CardHeader className="bg-gradient-primary text-primary-foreground rounded-t-lg">
-              <CardTitle className="flex items-center space-x-2 font-poppins">
-                <MessageCircle className="w-5 h-5" />
-                <span>AI Mental Health Assistant</span>
-                <div className="ml-auto flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                  <span className="text-sm">Online</span>
-                </div>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-0">
-              {/* Chat Messages */}
-              <div className="h-96 overflow-y-auto p-6 space-y-4 bg-muted/20">
-                {chatMessages.map((msg, index) => (
-                  <div
-                    key={index}
-                    className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}
-                    style={{ animationDelay: `${index * 0.2}s` }}
-                  >
-                    <div className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl ${
-                      msg.type === 'user' 
-                        ? 'bg-gradient-primary text-primary-foreground' 
-                        : 'bg-card shadow-soft border'
-                    }`}>
-                      <p className="text-sm">{msg.message}</p>
-                      <p className={`text-xs mt-1 ${
-                        msg.type === 'user' ? 'text-primary-foreground/70' : 'text-muted-foreground'
-                      }`}>
-                        {msg.time}
-                      </p>
-                    </div>
+          <div className="col-lg-8 animate-slide-in">
+            <div className="card-custom shadow-medium hover-glow">
+              <div className="card-header bg-gradient-primary text-white rounded-top-3">
+                <div className="d-flex align-items-center justify-content-between">
+                  <div className="d-flex align-items-center">
+                    <MessageCircle className="me-2" size={20} />
+                    <h5 className="mb-0 fw-bold">AI Mental Health Assistant</h5>
                   </div>
-                ))}
+                  <div className="d-flex align-items-center">
+                    <div className="bg-success rounded-circle me-2" style={{width: '8px', height: '8px'}}></div>
+                    <span className="small">Online</span>
+                  </div>
+                </div>
               </div>
-
-              {/* Input Area */}
-              <div className="p-6 border-t bg-card/50">
-                <div className="flex items-center space-x-3">
-                  <div className="relative flex-1">
-                    <Input 
-                      placeholder="Type your message here... I'm here to listen 💙"
-                      className="pr-12 rounded-full border-primary/20 focus:border-primary/40 transition-colors"
-                    />
-                    <Button 
-                      size="sm" 
-                      className="absolute right-1 top-1 h-8 w-8 rounded-full bg-gradient-accent hover:shadow-soft"
+              
+              <div className="card-body p-0">
+                {/* Chat Messages */}
+                <div className="bg-light p-4" style={{height: '400px', overflowY: 'auto'}}>
+                  {chatMessages.map((msg, index) => (
+                    <div
+                      key={index}
+                      className={`d-flex mb-3 animate-fade-in ${msg.type === 'user' ? 'justify-content-end' : 'justify-content-start'}`}
+                      style={{ animationDelay: `${index * 0.2}s` }}
                     >
-                      <Send className="w-4 h-4" />
-                    </Button>
-                  </div>
-                  <Button 
-                    size="sm" 
-                    variant="outline" 
-                    className="rounded-full hover:bg-accent/5 hover:border-accent/30"
-                  >
-                    <Mic className="w-4 h-4" />
-                  </Button>
-                  <Button 
-                    size="sm" 
-                    variant="outline" 
-                    className="rounded-full hover:bg-secondary/5 hover:border-secondary/30"
-                  >
-                    <Globe className="w-4 h-4" />
-                  </Button>
+                      <div className={`p-3 rounded-4 ${
+                        msg.type === 'user' 
+                          ? 'bg-gradient-primary text-white' 
+                          : 'bg-white shadow-sm border'
+                      }`} style={{maxWidth: '75%'}}>
+                        <p className="mb-1 small">{msg.message}</p>
+                        <p className={`mb-0 text-xs ${
+                          msg.type === 'user' ? 'text-white-50' : 'text-muted'
+                        }`}>
+                          {msg.time}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <p className="text-xs text-muted-foreground mt-2 text-center">
-                  All conversations are private and secure 🔒
-                </p>
+
+                {/* Input Area */}
+                <div className="p-4 border-top bg-white">
+                  <div className="input-group">
+                    <input 
+                      type="text"
+                      className="form-control border-primary-soft rounded-start-3" 
+                      placeholder="Type your message here... I'm here to listen 💙"
+                    />
+                    <button className="btn btn-gradient-accent rounded-end-3">
+                      <Send size={16} />
+                    </button>
+                  </div>
+                  <div className="d-flex gap-2 mt-3">
+                    <button className="btn btn-outline-secondary btn-sm rounded-3">
+                      <Mic size={16} />
+                    </button>
+                    <button className="btn btn-outline-secondary btn-sm rounded-3">
+                      <Globe size={16} />
+                    </button>
+                  </div>
+                  <p className="text-xs text-muted-custom mt-2 text-center mb-0">
+                    All conversations are private and secure 🔒
+                  </p>
+                </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
           {/* Tips Sidebar */}
-          <div className="space-y-6 animate-slide-in" style={{ animationDelay: '0.3s' }}>
-            <Card className="shadow-soft hover:shadow-medium transition-all duration-300">
-              <CardHeader>
-                <CardTitle className="font-poppins text-lg">💡 Helpful Tips</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
+          <div className="col-lg-4 animate-slide-in" style={{animationDelay: '0.3s'}}>
+            <div className="card-custom shadow-soft hover-glow mb-4">
+              <div className="card-header bg-light">
+                <h6 className="mb-0 fw-bold">💡 Helpful Tips</h6>
+              </div>
+              <div className="card-body">
                 {tips.map((tip, index) => (
-                  <div key={index} className="flex items-start space-x-3 p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
-                    <tip.icon className={`w-5 h-5 mt-0.5 ${tip.color}`} />
-                    <p className="text-sm text-foreground">{tip.text}</p>
+                  <div key={index} className="d-flex align-items-start mb-3 p-3 bg-light rounded-3 hover-scale">
+                    <tip.icon className={`me-3 mt-1 ${tip.color}`} size={20} />
+                    <p className="mb-0 small text-dark">{tip.text}</p>
                   </div>
                 ))}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="shadow-soft hover:shadow-medium transition-all duration-300">
-              <CardHeader>
-                <CardTitle className="font-poppins text-lg">🌟 Features</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center space-x-2 text-sm">
-                  <div className="w-2 h-2 bg-accent rounded-full"></div>
+            <div className="card-custom shadow-soft hover-glow mb-4">
+              <div className="card-header bg-light">
+                <h6 className="mb-0 fw-bold">🌟 Features</h6>
+              </div>
+              <div className="card-body">
+                <div className="d-flex align-items-center mb-2 small">
+                  <div className="bg-success rounded-circle me-2" style={{width: '8px', height: '8px'}}></div>
                   <span>24/7 Availability</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm">
-                  <div className="w-2 h-2 bg-secondary rounded-full"></div>
+                <div className="d-flex align-items-center mb-2 small">
+                  <div className="bg-info rounded-circle me-2" style={{width: '8px', height: '8px'}}></div>
                   <span>Multilingual Support</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm">
-                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                <div className="d-flex align-items-center mb-2 small">
+                  <div className="bg-primary rounded-circle me-2" style={{width: '8px', height: '8px'}}></div>
                   <span>Voice Messages</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm">
-                  <div className="w-2 h-2 bg-tertiary rounded-full"></div>
+                <div className="d-flex align-items-center small">
+                  <div className="bg-warning rounded-circle me-2" style={{width: '8px', height: '8px'}}></div>
                   <span>Personalized Responses</span>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="shadow-soft hover:shadow-medium transition-all duration-300 bg-gradient-to-br from-accent/5 to-secondary/5">
-              <CardContent className="p-6 text-center">
-                <div className="text-4xl mb-3">🚨</div>
-                <h4 className="font-semibold text-foreground mb-2">Crisis Support</h4>
-                <p className="text-sm text-muted-foreground mb-4">
+            <div className="card-custom shadow-soft hover-glow bg-gradient-to-br from-accent/5 to-secondary/5">
+              <div className="card-body text-center p-4">
+                <div className="display-4 mb-3">🚨</div>
+                <h6 className="fw-bold text-dark mb-2">Crisis Support</h6>
+                <p className="small text-muted-custom mb-3">
                   If you're in crisis, our AI will immediately connect you with human support.
                 </p>
-                <Button size="sm" variant="outline" className="border-destructive/30 text-destructive hover:bg-destructive/5">
+                <button className="btn btn-outline-danger btn-sm">
                   Emergency Help
-                </Button>
-              </CardContent>
-            </Card>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

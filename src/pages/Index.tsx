@@ -25,7 +25,7 @@ const Index = () => {
 
   return (
     <main 
-      className="min-h-screen relative"
+      className="min-vh-100 position-relative"
       style={{
         backgroundImage: `url(${heroBackground})`,
         backgroundSize: 'cover',
@@ -35,10 +35,10 @@ const Index = () => {
       }}
     >
       {/* Background overlay for better readability */}
-      <div className="absolute inset-0 bg-background/60 backdrop-blur-[2px]" />
+      <div className="position-absolute w-100 h-100 bg-white bg-opacity-60 backdrop-blur" style={{top: 0, left: 0, zIndex: 1}} />
       
       {/* Content wrapper */}
-      <div className="relative z-10">
+      <div className="position-relative" style={{zIndex: 10}}>
         <Navigation />
         <HeroSection />
         <DashboardSection />
