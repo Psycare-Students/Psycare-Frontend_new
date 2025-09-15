@@ -1,4 +1,8 @@
 import { Calendar, Clock, User, Video, Phone, MessageSquare, Star, Award } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const BookingSection = () => {
   const counselors = [
@@ -39,159 +43,157 @@ const BookingSection = () => {
   ];
 
   return (
-    <section id="book" className="py-10 bg-white">
-      <div className="container">
-        <div className="text-center mb-5 animate-fade-in">
-          <h2 className="display-4 fw-bold text-dark mb-4">
+    <section id="book" className="py-20 bg-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16 animate-fade-in">
+          <h2 className="text-3xl md:text-4xl font-bold font-poppins text-foreground mb-4">
             Book a Professional Counselor
           </h2>
-          <p className="lead text-muted-custom">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Connect with licensed mental health professionals who understand student life
           </p>
         </div>
 
-        <div className="row g-4">
+        <div className="grid lg:grid-cols-2 gap-12">
           {/* Counselor Selection */}
-          <div className="col-lg-6 animate-slide-in">
-            <h4 className="fw-bold text-dark mb-4">Choose Your Counselor</h4>
+          <div className="space-y-6 animate-slide-in">
+            <h3 className="text-xl font-semibold font-poppins text-foreground mb-6">Choose Your Counselor</h3>
             
             {counselors.map((counselor, index) => (
-              <div 
+              <Card 
                 key={index} 
-                className="card-custom shadow-soft hover-glow mb-4 cursor-pointer hover-scale border-2"
+                className="shadow-soft hover:shadow-medium transition-all duration-300 cursor-pointer hover:scale-[1.02] border-2 hover:border-primary/20"
               >
-                <div className="card-body p-4">
-                  <div className="d-flex align-items-start">
-                    <div className="fs-2 me-3">{counselor.avatar}</div>
-                    <div className="flex-grow-1">
-                      <div className="d-flex align-items-center mb-1">
-                        <h6 className="fw-bold text-dark mb-0 me-2">{counselor.name}</h6>
-                        <span className="badge bg-gradient-accent text-white small">
+                <CardContent className="p-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="text-4xl">{counselor.avatar}</div>
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-2 mb-1">
+                        <h4 className="font-semibold text-foreground">{counselor.name}</h4>
+                        <span className="px-2 py-1 bg-gradient-accent text-xs text-accent-foreground rounded-full font-medium">
                           {counselor.badge}
                         </span>
                       </div>
-                      <p className="text-muted-custom mb-2 small">{counselor.specialty}</p>
-                      <div className="d-flex align-items-center gap-3 small">
-                        <div className="d-flex align-items-center">
-                          <Star className="text-warning me-1" size={14} />
-                          <span className="fw-bold">{counselor.rating}</span>
+                      <p className="text-sm text-muted-foreground mb-2">{counselor.specialty}</p>
+                      <div className="flex items-center space-x-4 text-xs">
+                        <div className="flex items-center space-x-1">
+                          <Star className="w-3 h-3 text-tertiary fill-current" />
+                          <span className="font-medium">{counselor.rating}</span>
                         </div>
-                        <div className="d-flex align-items-center">
-                          <Award className="text-primary me-1" size={14} />
+                        <div className="flex items-center space-x-1">
+                          <Award className="w-3 h-3 text-primary" />
                           <span>{counselor.sessions}+ sessions</span>
                         </div>
                       </div>
                     </div>
-                    <button className="btn btn-outline-primary btn-sm">
+                    <Button size="sm" variant="outline" className="shrink-0">
                       Select
-                    </button>
+                    </Button>
                   </div>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
 
           {/* Booking Form */}
-          <div className="col-lg-6 animate-slide-in" style={{animationDelay: '0.2s'}}>
-            <div className="card-custom shadow-medium hover-glow">
-              <div className="card-header bg-gradient-to-r from-primary/5 to-secondary/5">
-                <div className="d-flex align-items-center">
-                  <Calendar className="text-primary me-2" size={20} />
-                  <h5 className="mb-0 fw-bold">Schedule Your Session</h5>
-                </div>
-              </div>
-              <div className="card-body p-4">
-                {/* Session Type */}
-                <div className="mb-4">
-                  <label className="form-label fw-bold text-dark">Session Type</label>
-                  <div className="d-grid gap-2">
-                    {sessionTypes.map((type, index) => (
-                      <div 
-                        key={index}
-                        className="d-flex align-items-center justify-content-between p-3 border rounded-3 hover-scale cursor-pointer"
-                        style={{transition: 'background-color 0.3s'}}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--bs-light)'}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                      >
-                        <div className="d-flex align-items-center">
-                          <type.icon className="text-primary me-3" size={20} />
-                          <div>
-                            <p className="fw-bold mb-0 small">{type.label}</p>
-                            <p className="text-muted-custom mb-0 text-xs">{type.duration}</p>
-                          </div>
-                        </div>
-                        <div className="text-end">
-                          <p className="fw-bold text-success mb-0 small">{type.price}</p>
-                          <p className="text-muted-custom mb-0 text-xs">for students</p>
+          <Card className="shadow-medium hover:shadow-glow transition-all duration-300 animate-slide-in" style={{ animationDelay: '0.2s' }}>
+            <CardHeader className="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-t-lg">
+              <CardTitle className="flex items-center space-x-2 font-poppins">
+                <Calendar className="w-5 h-5 text-primary" />
+                <span>Schedule Your Session</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-6 space-y-6">
+              {/* Session Type */}
+              <div>
+                <label className="text-sm font-medium text-foreground mb-3 block">Session Type</label>
+                <div className="grid grid-cols-1 gap-3">
+                  {sessionTypes.map((type, index) => (
+                    <div 
+                      key={index}
+                      className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/30 cursor-pointer transition-colors"
+                    >
+                      <div className="flex items-center space-x-3">
+                        <type.icon className="w-5 h-5 text-primary" />
+                        <div>
+                          <p className="font-medium text-sm">{type.label}</p>
+                          <p className="text-xs text-muted-foreground">{type.duration}</p>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Date Selection */}
-                <div className="mb-4">
-                  <label className="form-label fw-bold text-dark">Preferred Date</label>
-                  <input type="date" className="form-control rounded-3" />
-                </div>
-
-                {/* Time Selection */}
-                <div className="mb-4">
-                  <label className="form-label fw-bold text-dark">Available Time Slots</label>
-                  <div className="row g-2">
-                    {timeSlots.map((time, index) => (
-                      <div key={index} className="col-4">
-                        <button className="btn btn-outline-primary btn-sm w-100 hover-scale rounded-3">
-                          {time}
-                        </button>
+                      <div className="text-right">
+                        <p className="text-sm font-semibold text-accent">{type.price}</p>
+                        <p className="text-xs text-muted-foreground">for students</p>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
-
-                {/* Additional Notes */}
-                <div className="mb-4">
-                  <label className="form-label fw-bold text-dark">
-                    Anything you'd like your counselor to know? (Optional)
-                  </label>
-                  <textarea 
-                    className="form-control rounded-3" 
-                    rows={3}
-                    placeholder="Share what's on your mind or any specific concerns..."
-                  />
-                </div>
-
-                {/* Book Button */}
-                <button className="btn btn-gradient-primary w-100 btn-lg py-3 rounded-4 fw-bold hover-glow">
-                  <Calendar size={20} className="me-2" />
-                  Book Free Session
-                </button>
-
-                <p className="text-xs text-muted-custom text-center mt-3 mb-0">
-                  All sessions are completely free for students. You can cancel or reschedule up to 2 hours before your appointment.
-                </p>
               </div>
-            </div>
-          </div>
+
+              {/* Date Selection */}
+              <div>
+                <label className="text-sm font-medium text-foreground mb-3 block">Preferred Date</label>
+                <Input type="date" className="w-full" />
+              </div>
+
+              {/* Time Selection */}
+              <div>
+                <label className="text-sm font-medium text-foreground mb-3 block">Available Time Slots</label>
+                <div className="grid grid-cols-3 gap-2">
+                  {timeSlots.map((time, index) => (
+                    <Button 
+                      key={index}
+                      variant="outline" 
+                      size="sm"
+                      className="hover:bg-primary/5 hover:border-primary/30 transition-colors"
+                    >
+                      {time}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Additional Notes */}
+              <div>
+                <label className="text-sm font-medium text-foreground mb-3 block">
+                  Anything you'd like your counselor to know? (Optional)
+                </label>
+                <textarea 
+                  className="w-full p-3 border rounded-lg resize-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-colors"
+                  rows={3}
+                  placeholder="Share what's on your mind or any specific concerns..."
+                />
+              </div>
+
+              {/* Book Button */}
+              <Button className="w-full bg-gradient-primary hover:shadow-glow text-lg py-6 rounded-xl font-semibold transition-all duration-300">
+                <Calendar className="w-5 h-5 mr-2" />
+                Book Free Session
+              </Button>
+
+              <p className="text-xs text-muted-foreground text-center">
+                All sessions are completely free for students. You can cancel or reschedule up to 2 hours before your appointment.
+              </p>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Trust Indicators */}
-        <div className="row text-center mt-5 animate-fade-in" style={{animationDelay: '0.4s'}}>
-          <div className="col-3">
-            <div className="display-6 fw-bold text-primary">100%</div>
-            <div className="small text-muted-custom">Licensed Professionals</div>
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-primary font-poppins">100%</div>
+            <div className="text-sm text-muted-foreground">Licensed Professionals</div>
           </div>
-          <div className="col-3">
-            <div className="display-6 fw-bold text-info">24/7</div>
-            <div className="small text-muted-custom">Booking Available</div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-secondary font-poppins">24/7</div>
+            <div className="text-sm text-muted-foreground">Booking Available</div>
           </div>
-          <div className="col-3">
-            <div className="display-6 fw-bold text-success">Free</div>
-            <div className="small text-muted-custom">For All Students</div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-accent font-poppins">Free</div>
+            <div className="text-sm text-muted-foreground">For All Students</div>
           </div>
-          <div className="col-3">
-            <div className="display-6 fw-bold text-warning">48h</div>
-            <div className="small text-muted-custom">Average Response</div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-tertiary font-poppins">48h</div>
+            <div className="text-sm text-muted-foreground">Average Response</div>
           </div>
         </div>
       </div>

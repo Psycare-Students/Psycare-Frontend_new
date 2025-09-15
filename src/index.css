@@ -1,298 +1,139 @@
-/* Import Bootstrap CSS */
-@import 'bootstrap/dist/css/bootstrap.min.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* PsyCare Design System - Soft, encouraging mental health theme */
 
-:root {
-  /* Soft, soothing color palette */
-  --bs-primary: #a78bfa;
-  --bs-primary-rgb: 167, 139, 250;
-  --bs-secondary: #7dd3fc;
-  --bs-secondary-rgb: 125, 211, 252;
-  --bs-success: #86efac;
-  --bs-success-rgb: 134, 239, 172;
-  --bs-info: #67e8f9;
-  --bs-info-rgb: 103, 232, 249;
-  --bs-warning: #fbbf24;
-  --bs-warning-rgb: 251, 191, 36;
-  --bs-danger: #f87171;
-  --bs-danger-rgb: 248, 113, 113;
-  --bs-light: #f8fafc;
-  --bs-light-rgb: 248, 250, 252;
-  --bs-dark: #1e293b;
-  --bs-dark-rgb: 30, 41, 59;
+@layer base {
+  :root {
+    /* Soft, soothing color palette */
+    --background: 240 25% 98%;
+    --foreground: 240 15% 15%;
 
-  /* Custom color variables for PsyCare theme */
-  --primary-soft: rgba(167, 139, 250, 0.2);
-  --secondary-soft: rgba(125, 211, 252, 0.2);
-  --accent-soft: rgba(134, 239, 172, 0.2);
-  --tertiary: #fb7185;
-  --tertiary-soft: rgba(251, 113, 133, 0.2);
+    --card: 0 0% 100%;
+    --card-foreground: 240 15% 15%;
 
-  /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #a78bfa, #c084fc);
-  --gradient-secondary: linear-gradient(135deg, #7dd3fc, #67e8f9);
-  --gradient-accent: linear-gradient(135deg, #86efac, #a7f3d0);
-  --gradient-warm: linear-gradient(135deg, #fb7185, #fca5a5);
-  --gradient-hero: linear-gradient(135deg, rgba(167, 139, 250, 0.3), rgba(125, 211, 252, 0.3), rgba(134, 239, 172, 0.3));
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 15% 15%;
 
-  /* Shadows */
-  --shadow-soft: 0 4px 20px rgba(167, 139, 250, 0.15);
-  --shadow-medium: 0 8px 30px rgba(167, 139, 250, 0.2);
-  --shadow-glow: 0 0 30px rgba(167, 139, 250, 0.3);
+    /* Primary: Soft purple for mental wellness */
+    --primary: 260 55% 65%;
+    --primary-foreground: 0 0% 100%;
+    --primary-soft: 260 40% 85%;
 
-  /* Radius */
-  --bs-border-radius: 0.75rem;
-  --bs-border-radius-lg: 1rem;
-  --bs-border-radius-sm: 0.5rem;
+    /* Secondary: Calming blue */
+    --secondary: 210 60% 75%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-soft: 210 40% 90%;
 
-  /* Font */
-  --bs-body-font-family: 'Poppins', system-ui, sans-serif;
-  --bs-font-sans-serif: 'Poppins', system-ui, sans-serif;
-}
+    /* Accent: Encouraging green */
+    --accent: 150 50% 70%;
+    --accent-foreground: 0 0% 100%;
+    --accent-soft: 150 35% 90%;
 
-/* Body styling */
-body {
-  font-family: 'Poppins', system-ui, sans-serif;
-  background-color: var(--bs-light);
-  color: var(--bs-dark);
-}
+    /* Tertiary: Warm coral for energy */
+    --tertiary: 15 85% 75%;
+    --tertiary-foreground: 0 0% 100%;
+    --tertiary-soft: 15 60% 90%;
 
-/* Custom utility classes */
-.bg-gradient-primary {
-  background: var(--gradient-primary) !important;
-}
+    --muted: 240 15% 95%;
+    --muted-foreground: 240 10% 50%;
 
-.bg-gradient-secondary {
-  background: var(--gradient-secondary) !important;
-}
+    --destructive: 0 70% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-.bg-gradient-accent {
-  background: var(--gradient-accent) !important;
-}
+    --border: 240 15% 88%;
+    --input: 240 15% 88%;
+    --ring: 260 55% 65%;
 
-.bg-gradient-warm {
-  background: var(--gradient-warm) !important;
-}
+    --radius: 0.75rem;
 
-.bg-gradient-hero {
-  background: var(--gradient-hero) !important;
-}
+    /* Gradients for mental wellness theme */
+    --gradient-primary: linear-gradient(135deg, hsl(260 55% 65%), hsl(280 50% 70%));
+    --gradient-secondary: linear-gradient(135deg, hsl(210 60% 75%), hsl(190 55% 80%));
+    --gradient-accent: linear-gradient(135deg, hsl(150 50% 70%), hsl(170 45% 75%));
+    --gradient-warm: linear-gradient(135deg, hsl(15 85% 75%), hsl(35 80% 80%));
+    --gradient-hero: linear-gradient(135deg, hsl(260 40% 85%), hsl(210 40% 90%), hsl(150 35% 90%));
+    
+    /* Shadows with color tints */
+    --shadow-soft: 0 4px 20px hsl(260 20% 70% / 0.15);
+    --shadow-medium: 0 8px 30px hsl(260 20% 60% / 0.2);
+    --shadow-glow: 0 0 30px hsl(260 55% 65% / 0.3);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
-.bg-primary-soft {
-  background-color: var(--primary-soft) !important;
-}
+    --sidebar-background: 0 0% 98%;
 
-.bg-secondary-soft {
-  background-color: var(--secondary-soft) !important;
-}
+    --sidebar-foreground: 240 5.3% 26.1%;
 
-.bg-accent-soft {
-  background-color: var(--accent-soft) !important;
-}
+    --sidebar-primary: 240 5.9% 10%;
 
-.bg-tertiary-soft {
-  background-color: var(--tertiary-soft) !important;
-}
+    --sidebar-primary-foreground: 0 0% 98%;
 
-.text-primary-soft {
-  color: rgba(167, 139, 250, 0.8) !important;
-}
+    --sidebar-accent: 240 4.8% 95.9%;
 
-.text-secondary-soft {
-  color: rgba(125, 211, 252, 0.8) !important;
-}
+    --sidebar-accent-foreground: 240 5.9% 10%;
 
-.text-tertiary {
-  color: var(--tertiary) !important;
-}
+    --sidebar-border: 220 13% 91%;
 
-.shadow-soft {
-  box-shadow: var(--shadow-soft) !important;
-}
-
-.shadow-medium {
-  box-shadow: var(--shadow-medium) !important;
-}
-
-.shadow-glow {
-  box-shadow: var(--shadow-glow) !important;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .dark {
+    /* Dark mode with softer, warmer tones */
+    --background: 240 20% 8%;
+    --foreground: 240 10% 95%;
+
+    --card: 240 15% 12%;
+    --card-foreground: 240 10% 95%;
+
+    --popover: 240 15% 12%;
+    --popover-foreground: 240 10% 95%;
+
+    --primary: 260 50% 70%;
+    --primary-foreground: 240 20% 8%;
+    --primary-soft: 260 30% 25%;
+
+    --secondary: 210 50% 65%;
+    --secondary-foreground: 240 20% 8%;
+    --secondary-soft: 210 30% 20%;
+
+    --accent: 150 40% 60%;
+    --accent-foreground: 240 20% 8%;
+    --accent-soft: 150 25% 20%;
+
+    --tertiary: 15 70% 65%;
+    --tertiary-foreground: 240 20% 8%;
+    --tertiary-soft: 15 40% 20%;
+
+    --muted: 240 15% 15%;
+    --muted-foreground: 240 10% 65%;
+
+    --destructive: 0 60% 55%;
+    --destructive-foreground: 240 10% 95%;
+
+    --border: 240 15% 20%;
+    --input: 240 15% 20%;
+    --ring: 260 50% 70%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
+@layer base {
+  * {
+    @apply border-border;
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
 
-@keyframes bounceSoft {
-  0%, 100% {
-    transform: translateY(-5px);
-  }
-  50% {
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulseGlow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(167, 139, 250, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(167, 139, 250, 0.5);
-  }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out;
-}
-
-.animate-slide-in {
-  animation: slideIn 0.6s ease-out;
-}
-
-.animate-bounce-soft {
-  animation: bounceSoft 3s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulseGlow 2s ease-in-out infinite;
-}
-
-/* Hover effects */
-.hover-scale:hover {
-  transform: scale(1.05);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.hover-glow:hover {
-  box-shadow: var(--shadow-glow);
-  transition: box-shadow 0.3s ease;
-}
-
-/* Card styling */
-.card-custom {
-  border-radius: var(--bs-border-radius-lg);
-  border: none;
-  box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.card-custom:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-medium);
-  transition: all 0.3s ease;
-}
-
-/* Button customizations */
-.btn-gradient-primary {
-  background: var(--gradient-primary);
-  border: none;
-  color: white;
-  border-radius: var(--bs-border-radius);
-}
-
-.btn-gradient-primary:hover {
-  background: linear-gradient(135deg, #9333ea, #a855f7);
-  color: white;
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-medium);
-}
-
-.btn-gradient-secondary {
-  background: var(--gradient-secondary);
-  border: none;
-  color: white;
-  border-radius: var(--bs-border-radius);
-}
-
-.btn-gradient-secondary:hover {
-  background: linear-gradient(135deg, #0ea5e9, #06b6d4);
-  color: white;
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-medium);
-}
-
-/* Backdrop blur utilities */
-.backdrop-blur-sm {
-  backdrop-filter: blur(4px);
-}
-
-.backdrop-blur {
-  backdrop-filter: blur(8px);
-}
-
-/* Custom positioning */
-.position-sticky-top {
-  position: sticky;
-  top: 0;
-  z-index: 1020;
-}
-
-/* Text utilities */
-.text-muted-custom {
-  color: rgba(30, 41, 59, 0.6) !important;
-}
-
-/* Border utilities */
-.border-soft {
-  border: 1px solid rgba(167, 139, 250, 0.2) !important;
-}
-
-.border-primary-soft {
-  border-color: var(--primary-soft) !important;
-}
-
-/* Spacing utilities for better control */
-.py-7 {
-  padding-top: 3rem !important;
-  padding-bottom: 3rem !important;
-}
-
-.py-8 {
-  padding-top: 4rem !important;
-  padding-bottom: 4rem !important;
-}
-
-.py-10 {
-  padding-top: 5rem !important;
-  padding-bottom: 5rem !important;
-}
-
-.py-12 {
-  padding-top: 6rem !important;
-  padding-bottom: 6rem !important;
-}
-
-/* Custom grid and flex utilities */
-.min-vh-100 {
-  min-height: 100vh;
-}
-
-/* Responsive text utilities */
-@media (max-width: 768px) {
-  .display-4 {
-    font-size: 2.5rem !important;
-  }
-  .display-5 {
-    font-size: 2rem !important;
+  body {
+    @apply bg-background text-foreground font-poppins;
   }
 }
