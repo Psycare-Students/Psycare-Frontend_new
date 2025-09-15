@@ -5,6 +5,7 @@ import StreakAnalysis from "./pages/StreakAnalysis";
 import AIChat from "./pages/AIChat";
 import CounselorBooking from "./pages/CounselorBooking";
 import Resources from "./pages/Resources";
+import AuthForm from "./pages/AuthForm";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
         <Route path="/chat" element={<AIChat />} />
         <Route path="/counselor" element={<CounselorBooking />} />
         <Route path="/resources" element={<Resources />} />
+        <Route path="/login" element={<AuthForm />} />
+        <Route path="/signup" element={<AuthForm />} />
       </Routes>
     </Router>
   );
