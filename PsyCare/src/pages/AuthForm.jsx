@@ -10,7 +10,10 @@ const AuthForm = () => {
     password: ''
   });
 
-  const avatars = ['😊', '⭐', '🐻', '🌈', '🌸', '⭐', '🌈', '🌙', '🌻', '🦋', '🍃', '🚀','❤️', '⚡'];
+  const avatars = [
+  '😊', '⭐', '🐻', '🌈', '🌸', '⭐', '🌈', '🌙', '🌻', '🦋', '🍃', '🚀', '❤️', '⚡',
+  '🎉', '🐱', '🍀', '🌟'
+];
 
   // Pale gradient background to match image
   const containerStyle = {
@@ -26,7 +29,7 @@ const AuthForm = () => {
     borderRadius: '28px',
     padding: '48px 38px',
     boxShadow: '0 8px 32px 0 rgba(55,56,112,0.13)',
-    maxWidth: '500px',
+    maxWidth: '650px',
     width: '100%',
   };
 
@@ -41,6 +44,20 @@ const AuthForm = () => {
     flex: 1,
     boxShadow: active ? "inset 0 -2px 5px #ebe0ff" : "none",
     transition: 'all 0.2s'
+  });
+
+  const roleButtonStyle = (active) => ({
+    background: active ? '#ece6fb' : '#f7f6ff',           // Light violet on active, very pale when inactive
+    color: active ? '#a682e3' : '#6b7280', 
+    border: active ? '2px solid #a682e3' : '2px solid #eeebfa',
+    borderRadius: '10px',
+    fontWeight: '600',
+    fontSize: '1.14rem',
+    width: '95%',
+    padding: '8px',
+    cursor: 'pointer',
+    boxShadow: active ? '0 2px 12px 0 rgba(143,104,242,0.12)' : 'none',
+    transition: 'all 0.18s'
   });
 
   const avatarStyle = (isSelected) => ({
@@ -236,6 +253,34 @@ const AuthForm = () => {
                 </button>
               </div>
             </div>
+
+            {isSignUp && (
+              <div className="mb-4">
+                <div className="fw-semibold mb-2" style={{ color: '#374151', fontSize: '1.05rem' }}>
+                  Register As❓
+                </div>
+                <div className="row g-2">
+                  <div className="col">
+                    <button
+                      type="button"
+                      style={roleButtonStyle(formData.role === 'student')}
+                      onClick={() => setFormData({ ...formData, role: 'student' })}
+                    >
+                      Student
+                    </button>
+                  </div>
+                  <div className="col">
+                    <button
+                      type="button"
+                      style={roleButtonStyle(formData.role === 'admin')}
+                      onClick={() => setFormData({ ...formData, role: 'admin' })}
+                    >
+                      Admin
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
             {/* Submit Button */}
             <button
               type="submit"
