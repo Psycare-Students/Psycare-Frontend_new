@@ -3,7 +3,15 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Index from "./pages/Index.jsx";
+import ChatSection from "./components/ChatSection.jsx";
+import AppointmentsSection from "./components/AppointmentsSection.jsx";
+import Ai_chat from "./components/AIChatSection.jsx";
+import BookingSection from "./components/BookingSection.jsx";
+import WellnessResources from "./components/ResourcesSection.jsx";
+import CommunitySection from "./components/CommunitySection.jsx";
+import Tests from "./components/Tests.jsx" // Chat page component
 import NotFound from "./pages/NotFound.jsx";
 
 const queryClient = new QueryClient();
@@ -16,6 +24,13 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/chat" element={<ChatSection />} />
+          <Route path="/appointments" element={<AppointmentsSection />} />
+          <Route path="/book" element={<BookingSection />} />
+          <Route path="/resources" element={<WellnessResources />} />
+          <Route path="/community" element={<CommunitySection />} />
+          <Route path="/ai-chat" element={<Ai_chat />} />
+          <Route path="/tests" element={<Tests />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
@@ -24,5 +39,3 @@ const App = () => (
 );
 
 export default App;
-
-

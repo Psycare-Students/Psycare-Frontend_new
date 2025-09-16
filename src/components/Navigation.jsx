@@ -12,6 +12,9 @@ const Navigation = () => {
     { href: '#resources', label: 'Resources', icon: BookOpen },
     { href: '#community', label: 'Community', icon: Users },
     { href: '#appointments', label: 'Appointments', icon: UserCheck },
+    { href: '#chat', label: 'Chat', icon: UserCheck },
+
+
   ];
 
   return (

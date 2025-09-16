@@ -1,25 +1,125 @@
-import { Smile, TrendingUp, Calendar, Zap, Clock, Target, MessageCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import React, { useState } from "react";
+import {
+  Smile,
+  TrendingUp,
+  Calendar,
+  Zap,
+  Clock,
+  Target,
+  MessageCircle,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 const DashboardSection = () => {
   const moodOptions = [
-    { emoji: '😊', label: 'Great', color: 'bg-gradient-accent' },
-    { emoji: '🙂', label: 'Good', color: 'bg-gradient-secondary' },
-    { emoji: '😐', label: 'Okay', color: 'bg-gradient-warm' },
-    { emoji: '😔', label: 'Down', color: 'bg-gradient-primary' },
-    { emoji: '😢', label: 'Sad', color: 'bg-destructive' },
+    { emoji: "😊", label: "Great", color: "bg-gradient-accent" },
+    { emoji: "🙂", label: "Good", color: "bg-gradient-secondary" },
+    { emoji: "😐", label: "Okay", color: "bg-gradient-warm" },
+    { emoji: "😔", label: "Down", color: "bg-gradient-primary" },
+    { emoji: "😢", label: "Sad", color: "bg-destructive" },
   ];
 
   const recentActivities = [
-    { time: '2 hours ago', activity: 'Completed breathing exercise', icon: Zap, color: 'text-accent' },
-    { time: '1 day ago', activity: 'Chat session with AI counselor', icon: Target, color: 'text-primary' },
-    { time: '3 days ago', activity: 'Joined community discussion', icon: Clock, color: 'text-secondary' },
+    { time: "2 hours ago", activity: "Completed breathing exercise", icon: Zap, color: "text-accent" },
+    { time: "1 day ago", activity: "Chat session with AI counselor", icon: Target, color: "text-primary" },
+    { time: "3 days ago", activity: "Joined community discussion", icon: Clock, color: "text-secondary" },
   ];
+
+  // ---------- State ----------
+  const [moodPattern, setMoodPattern] = useState(["😊", "🙂", "😊", "😐", "🙂", "😊", "😊"]);
+  const [wellnessScore, setWellnessScore] = useState(78);
+  const [dayStreak, setDayStreak] = useState(7);
+
+  // modal state
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
+
+  const handleMoodSelect = (moodEmoji, label) => {
+    // add new mood at the end and drop oldest
+    const updatedPattern = [...moodPattern.slice(1), moodEmoji];
+    setMoodPattern(updatedPattern);
+
+    // recalculate wellness score (just demo)
+    if (["😊", "🙂"].includes(moodEmoji)) {
+      setWellnessScore((prev) => prev + 2);
+      setDayStreak((prev) => prev + 1);
+    } else {
+      setWellnessScore((prev) => Math.max(0, prev - 1));
+      setDayStreak(0);
+    }
+
+    // open appropriate modal
+    if (["😢", "😔"].includes(moodEmoji)) {
+      setModalContent({
+        title: "We’re here for you ❤️",
+        description: "It seems you’re feeling down. Would you like to talk to a counselor or explore wellness resources?",
+        buttons: [
+          { label: "Book a Counselor", href: "/book" },
+          { label: "View Wellness Resources", href: "/resources" },
+        ],
+      });
+      setModalOpen(true);
+    } else if (["😊", "🙂"].includes(moodEmoji)) {
+      setModalContent({
+        title: "That’s wonderful! 🎉",
+        description: "We’re glad you’re feeling great. Would you like to share what made your day happy in the community?",
+        buttons: [
+          { label: "Share in Community", href: "/community" },
+        ],
+      });
+      setModalOpen(true);
+    }
+  };
 
   return (
     <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* MODAL */}
+        <Dialog open={modalOpen} onOpenChange={setModalOpen}>
+          <DialogContent className="sm:max-w-md">
+            {modalContent && (
+              <>
+                <DialogHeader>
+                  <DialogTitle>{modalContent.title}</DialogTitle>
+                  <DialogDescription>{modalContent.description}</DialogDescription>
+                </DialogHeader>
+                <DialogFooter className="flex flex-wrap gap-2">
+                  {modalContent.buttons.map((btn, idx) => (
+                    <Button
+                      key={idx}
+                      asChild
+                      className="mt-2 w-full sm:w-auto"
+                    >
+                      <a href={btn.href}>{btn.label}</a>
+                    </Button>
+                  ))}
+                  <Button
+                    variant="outline"
+                    onClick={() => setModalOpen(false)}
+                    className="mt-2 w-full sm:w-auto"
+                  >
+                    Close
+                  </Button>
+                </DialogFooter>
+              </>
+            )}
+          </DialogContent>
+        </Dialog>
+
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-3xl md:text-4xl font-bold font-poppins text-foreground mb-4">
             Your Mental Health Dashboard
@@ -43,6 +143,7 @@ const DashboardSection = () => {
                   <Button
                     key={index}
                     variant="outline"
+                    onClick={() => handleMoodSelect(mood.emoji, mood.label)}
                     className="h-20 flex-col space-y-2 hover:scale-105 transition-all duration-300 hover:shadow-soft"
                   >
                     <span className="text-2xl">{mood.emoji}</span>
@@ -50,33 +151,35 @@ const DashboardSection = () => {
                   </Button>
                 ))}
               </div>
-              
+
               <div className="bg-muted/30 rounded-lg p-4">
                 <h4 className="font-semibold text-sm mb-2">This Week's Mood Pattern</h4>
                 <div className="flex items-center space-x-2">
                   <div className="flex space-x-1">
-                    {['😊', '🙂', '😊', '😐', '🙂', '😊', '😊'].map((emoji, i) => (
+                    {moodPattern.map((emoji, i) => (
                       <span key={i} className="text-lg">{emoji}</span>
                     ))}
                   </div>
                   <div className="flex items-center text-accent text-sm font-medium ml-4">
                     <TrendingUp className="w-4 h-4 mr-1" />
-                    Improving trend
+                    {wellnessScore >= 78 ? "Improving trend" : "Needs attention"}
                   </div>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <div className="space-y-6 animate-slide-in" style={{ animationDelay: '0.2s' }}>
+          <div className="space-y-6 animate-slide-in" style={{ animationDelay: "0.2s" }}>
             <Card className="shadow-soft hover:shadow-medium transition-all duration-300">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
                   <TrendingUp className="w-8 h-8 text-primary-foreground" />
                 </div>
-                <div className="text-3xl font-bold text-primary font-poppins mb-1">78</div>
+                <div className="text-3xl font-bold text-primary font-poppins mb-1">{wellnessScore}</div>
                 <div className="text-sm text-muted-foreground">Wellness Score</div>
-                <div className="text-xs text-accent mt-1">+5 from last week</div>
+                <div className="text-xs text-accent mt-1">
+                  {wellnessScore >= 78 ? "+Good progress" : "Work on it"}
+                </div>
               </CardContent>
             </Card>
 
@@ -96,22 +199,26 @@ const DashboardSection = () => {
                 <div className="w-16 h-16 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-4">
                   <Zap className="w-8 h-8 text-accent-foreground" />
                 </div>
-                <div className="text-3xl font-bold text-accent font-poppins mb-1">7</div>
+                <div className="text-3xl font-bold text-accent font-poppins mb-1">{dayStreak}</div>
                 <div className="text-sm text-muted-foreground">Day Streak</div>
-                <div className="text-xs text-accent mt-1">Keep it up!</div>
+                <div className="text-xs text-accent mt-1">{dayStreak > 0 ? "Keep it up!" : "Start again"}</div>
               </CardContent>
             </Card>
           </div>
         </div>
 
+        {/* Recent Activities */}
         <div className="grid md:grid-cols-2 gap-8 mt-12">
-          <Card className="shadow-soft hover:shadow-medium transition-all duration-300 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+          <Card className="shadow-soft hover:shadow-medium transition-all duration-300 animate-fade-in" style={{ animationDelay: "0.4s" }}>
             <CardHeader>
               <CardTitle className="font-poppins">Quick Actions</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <Button className="w-full justify-start bg-gradient-primary hover:shadow-soft">
-                <MessageCircle className="w-4 h-4 mr-2" />
+              <Button className="w-full justify-start bg-gradient-primary hover:shadow-soft"
+               onClick={() => navigate("/ai-chat")} >
+                <MessageCircle className="w-4 h-4 mr-2" 
+                
+                />
                 Start AI Chat Session
               </Button>
               <Button variant="outline" className="w-full justify-start hover:bg-secondary/5">
@@ -119,13 +226,14 @@ const DashboardSection = () => {
                 Practice Breathing Exercise
               </Button>
               <Button variant="outline" className="w-full justify-start hover:bg-accent/5">
-                <Calendar className="w-4 h-4 mr-2" />
+                <Calendar className="w-4 h-4 mr-2"
+                 onClick={() => navigate("/book")}  />
                 Schedule Counselor Meeting
               </Button>
             </CardContent>
           </Card>
 
-          <Card className="shadow-soft hover:shadow-medium transition-all duration-300 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+          <Card className="shadow-soft hover:shadow-medium transition-all duration-300 animate-fade-in" style={{ animationDelay: "0.6s" }}>
             <CardHeader>
               <CardTitle className="font-poppins">Recent Activities</CardTitle>
             </CardHeader>
@@ -150,5 +258,3 @@ const DashboardSection = () => {
 };
 
 export default DashboardSection;
-
-
