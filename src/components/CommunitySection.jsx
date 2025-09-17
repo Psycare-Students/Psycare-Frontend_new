@@ -67,7 +67,7 @@ export default function CommunityForum() {
     .slice(0, 5);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-6" id="community">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10 mt-14">
           <h1 className="text-4xl font-bold">Community Support Forum</h1>

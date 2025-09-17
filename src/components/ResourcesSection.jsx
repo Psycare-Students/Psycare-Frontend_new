@@ -78,6 +78,7 @@ export default function Resources() {
     <div
       className="relative min-h-screen overflow-x-hidden bg-cover bg-center bg-fixed"
       style={{ backgroundImage: `url(${girlImage})` }}
+      id="resources"
     >
       {/* overlay */}
       <div className="absolute inset-0 bg-white/50 backdrop-blur-sm z-1"></div>

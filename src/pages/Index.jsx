@@ -32,7 +32,7 @@ const Index = () => {
     >
       <div className="absolute inset-0 bg-background/60 backdrop-blur-[2px]" />
       <div className="relative z-10">
-        <Navigation />
+        {/* <Navigation /> */}
         <HeroSection />
         <DashboardSection />
         <AIChatSection />
@@ -40,7 +40,7 @@ const Index = () => {
         <ResourcesSection />
         <CommunitySection />
         <AppointmentsSection />
-        <AuthSection />
+        {/* <AuthSection /> */}
         <footer className="bg-gradient-to-r from-primary-soft/30 via-secondary-soft/30 to-accent-soft/30 backdrop-blur-sm py-12 border-t border-border/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8">

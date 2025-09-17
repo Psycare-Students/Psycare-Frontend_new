@@ -12,7 +12,9 @@ import BookingSection from "./components/BookingSection.jsx";
 import WellnessResources from "./components/ResourcesSection.jsx";
 import CommunitySection from "./components/CommunitySection.jsx";
 import Tests from "./components/Tests.jsx" // Chat page component
+import AuthSelection from "./components/AuthSection.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import Navbar from "./components/Navigation.jsx";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +24,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/chat" element={<ChatSection />} />
@@ -31,6 +34,7 @@ const App = () => (
           <Route path="/community" element={<CommunitySection />} />
           <Route path="/ai-chat" element={<Ai_chat />} />
           <Route path="/tests" element={<Tests />} />
+          <Route path="/auth" element={<AuthSelection />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
