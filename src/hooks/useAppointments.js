@@ -8,7 +8,7 @@ export function useAppointments() {
   const fetchAppointments = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/appointments", {
+      const res = await fetch("http://localhost:8080/api/appointments", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -36,7 +36,7 @@ export function useAppointments() {
 
   const cancelAppointment = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/appointments/${id}`, {
+      const res = await fetch(`http://localhost:8080/api/appointments/${id}`, {
         method: "DELETE",
         credentials: "include",
       });

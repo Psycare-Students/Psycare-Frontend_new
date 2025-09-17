@@ -12,8 +12,32 @@ const AuthSection = () => {
   });
 
   const avatars = [
-    "😊", "⭐", "🐻", "🌈", "🌸", "⭐", "🌈", "🌙", "🌻", "🦋", "🍃",
+    "😊", "😇", "🐻", "😉", "🌸", "⭐", "🥸", "🌙", "🌻", "🦋", "🍃",
     "🚀", "❤️", "⚡", "🎉", "🐱", "🍀", "🌟",
+  ];
+
+  // Hindi funny names in English words
+  const hindiFunnyNames = [
+    "Chota Packet Bada Dhamaka",
+    "Nautanki King",
+    "Drama Queen",
+    "Bindaas Bandaa",
+    "Mast Maula",
+    "Jhakaas Jodi",
+    "Golmaal Guru",
+    "Fultoo Filmy",
+    "Tension Ka The End",
+    "Jugaadu",
+    "Chatpata Chaat",
+    "Dabangg Dude",
+    "Baklol",
+    "Pataka Girl",
+    "Chill Pill",
+    "Hawa Hawai",
+    "Gupshup Guru",
+    "Masti Machine",
+    "Lafanga",
+    "Jolly Joker"
   ];
 
   const handleInputChange = (e) => {
@@ -23,9 +47,64 @@ const AuthSection = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", { ...formData, avatar: selectedAvatar, isSignUp });
+    setError("");
+    setSuccess("");
+    setLoading(true);
+    try {
+      let res, data;
+      if (isSignUp) {
+        res = await fetch("http://localhost:8080/api/auth/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: formData.fullName,
+            email: formData.email,
+            password: formData.password,
+            role: formData.role,
+            avatar: selectedAvatar,
+          }),
+        });
+      } else {
+        res = await fetch("http://localhost:8080/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+          }),
+        });
+      }
+      const text = await res.text();
+      data = text ? JSON.parse(text) : {};
+      if (!res.ok) throw new Error(data.message || "Request failed");
+      setSuccess(data.message || (isSignUp ? "Signup successful!" : "Login successful!"));
+      if (data.token && data.user) {
+        // Assign a random funny name if not present (for simple login)
+        if (!data.user.funnyName) {
+          const randomName = hindiFunnyNames[Math.floor(Math.random() * hindiFunnyNames.length)];
+          data.user.funnyName = randomName;
+        }
+        // Assign a random avatar if not present
+        if (!data.user.avatar) {
+          const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
+          data.user.avatar = randomAvatar;
+        }
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        // Redirect to home and reload to update navbar
+        window.location.href = "/";
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -91,6 +170,12 @@ const AuthSection = () => {
 
           {/* Form */}
           <form onSubmit={handleSubmit}>
+            {error && (
+              <div className="mb-4 text-red-500 font-semibold text-center">{error}</div>
+            )}
+            {success && (
+              <div className="mb-4 text-green-600 font-semibold text-center">{success}</div>
+            )}
             {isSignUp && (
               <div className="mb-4 relative">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
@@ -176,8 +261,9 @@ const AuthSection = () => {
             <button
               type="submit"
               className="w-full py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-[#aa85ff] to-[#67c7fc] shadow-md hover:shadow-lg transition"
+              disabled={loading}
             >
-              {isSignUp ? "Create Account" : "Login"}
+              {loading ? (isSignUp ? "Signing Up..." : "Logging In...") : (isSignUp ? "Create Account" : "Login")}
             </button>
           </form>
 
@@ -188,7 +274,11 @@ const AuthSection = () => {
 
           {/* Google Login */}
           <div className="flex justify-center mb-6">
-            <button className="flex items-center gap-2 border border-gray-200 rounded-lg px-6 py-2 text-lg font-semibold text-[#302aa2] bg-white hover:bg-gray-50 transition">
+            <button
+              type="button"
+              className="flex items-center gap-2 border border-gray-200 rounded-lg px-6 py-2 text-lg font-semibold text-[#302aa2] bg-white hover:bg-gray-50 transition"
+              onClick={() => window.location.href = "http://localhost:8080/api/auth/google"}
+            >
               <svg width="20" height="20" viewBox="0 0 24 24">
                 <path
                   fill="#4285F4"

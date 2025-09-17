@@ -16,6 +16,17 @@ import { Button } from "@/components/ui/button";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  // Get user from localStorage
+  // Only show user info if token exists and user has logged in
+  let user = null;
+  const token = localStorage.getItem("token");
+  try {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (token && storedUser && (storedUser.funnyName || storedUser.avatar)) {
+      user = storedUser;
+    }
+  } catch {}
 
   const navItems = [
     { href: "#home", label: "Home", icon: Brain },
@@ -59,16 +70,50 @@ const Navigation = () => {
           </div>
 
           {/* Desktop Auth Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
-            <Link to="/auth">
-              <Button
-                size="sm"
-                className="bg-gradient-primary hover:shadow-glow transition-all duration-300"
-              >
-                <UserPlus className="w-4 h-4 mr-2" />
-                Sign In / Sign Up
-              </Button>
-            </Link>
+          <div className="hidden md:flex items-center space-x-3 relative">
+            {user ? (
+              <>
+                <button
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#f7f6ff] border border-[#eeebfa] focus:outline-none"
+                  onClick={() => setShowUserMenu((prev) => !prev)}
+                >
+                  <span className="text-2xl">{user.avatar || "😊"}</span>
+                  <span className="font-semibold text-[#a682e3]">{user.funnyName || user.name || "User"}</span>
+                </button>
+                {showUserMenu && (
+                  <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                    <Link
+                      to="/profile"
+                      className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-t-lg"
+                      onClick={() => setShowUserMenu(false)}
+                    >
+                      Profile
+                    </Link>
+                    <button
+                      className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-b-lg"
+                      onClick={() => {
+                        localStorage.removeItem("token");
+                        localStorage.removeItem("user");
+                        setShowUserMenu(false);
+                        window.location.reload();
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <Link to="/auth">
+                <Button
+                  size="sm"
+                  className="bg-gradient-primary hover:shadow-glow transition-all duration-300"
+                >
+                  <UserPlus className="w-4 h-4 mr-2" />
+                  Sign In / Sign Up
+                </Button>
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -107,15 +152,50 @@ const Navigation = () => {
 
             {/* Auth Buttons in Mobile */}
             <div className="pt-4 border-t border-border/50 space-y-2">
-              <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
-                <Button
-                  size="sm"
-                  className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300"
-                >
-                  <UserPlus className="w-4 h-4 mr-2" />
-                  Sign In / Sign Up
-                </Button>
-              </Link>
+              {user ? (
+                <div className="relative">
+                  <button
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#f7f6ff] border border-[#eeebfa] w-full focus:outline-none"
+                    onClick={() => setShowUserMenu((prev) => !prev)}
+                  >
+                    <span className="text-2xl">{user.avatar || "😊"}</span>
+                    <span className="font-semibold text-[#a682e3]">{user.funnyName || user.name || "User"}</span>
+                  </button>
+                  {showUserMenu && (
+                    <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                      <Link
+                        to="/profile"
+                        className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-t-lg"
+                        onClick={() => { setShowUserMenu(false); setIsMenuOpen(false); }}
+                      >
+                        Profile
+                      </Link>
+                      <button
+                        className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-b-lg"
+                        onClick={() => {
+                          localStorage.removeItem("token");
+                          localStorage.removeItem("user");
+                          setShowUserMenu(false);
+                          setIsMenuOpen(false);
+                          window.location.reload();
+                        }}
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
+                  <Button
+                    size="sm"
+                    className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300"
+                  >
+                    <UserPlus className="w-4 h-4 mr-2" />
+                    Sign In / Sign Up
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
         </div>
