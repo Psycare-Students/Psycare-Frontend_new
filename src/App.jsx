@@ -16,6 +16,12 @@ import AuthSelection from "./components/AuthSection.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Navbar from "./components/Navigation.jsx";
 import Profile from "./pages/Profile.jsx";
+import StressManagement from "./pages/StressManagement.jsx";
+import SleepAudioLibrary from "./pages/SleepLibrary.jsx"; 
+import WellnessBreathingPage from "./pages/BreathPage.jsx";
+import MindfulnessPage from "./pages/MindfulnessPage.jsx";
+
+// Initialize React Query client
 
 const queryClient = new QueryClient();
 
@@ -54,6 +60,10 @@ const App = () => (
           <Route path="/tests" element={<Tests />} />
           <Route path="/auth" element={<AuthSelection />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/stress-management" element={<StressManagement />} />
+          <Route path="/sleep-library" element={<SleepAudioLibrary />} />
+          <Route path="/breath" element={<WellnessBreathingPage />} />
+          <Route path="/mindfulness" element={<MindfulnessPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
