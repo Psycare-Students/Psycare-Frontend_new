@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import girlImage from "/src/assets/hero-illustration.jpg";
 import { Link } from "react-router-dom"; // <-- for linking
+import { useNavigate } from "react-router-dom"; 
 
 const categories = [
   "All",
@@ -29,6 +30,7 @@ const resources = [
       "Learn effective techniques to manage academic and personal stress",
     details: "12 exercises",
     icon: <FaLeaf className="text-emerald-500 text-2xl" />,
+    route: "/stress-management"
   },
   {
     title: "Sleep Audio Library",
@@ -38,6 +40,7 @@ const resources = [
       "Guided meditations and calming sounds for better sleep",
     details: "25 audios",
     icon: <FaBed className="text-blue-500 text-2xl" />,
+    route: "/sleep-library"
   },
   {
     title: "Breathing Exercises",
@@ -46,6 +49,7 @@ const resources = [
     description: "Simple breathing techniques for anxiety and relaxation",
     details: "8 techniques",
     icon: <FaWind className="text-cyan-500 text-2xl" />,
+    route: "/breath"
   },
   {
     title: "Mindfulness Practice",
@@ -54,6 +58,7 @@ const resources = [
     description: "Daily mindfulness exercises to improve mental clarity",
     details: "15 practices",
     icon: <FaBrain className="text-violet-500 text-2xl" />,
+    route: "/mindfulness"
   },
   {
     title: "Crisis Support",
@@ -62,6 +67,7 @@ const resources = [
     description: "Immediate help resources and emergency contact information",
     details: "24/7 support",
     icon: <FaPhoneAlt className="text-red-500 text-2xl" />,
+    route: "/crisis-support"
   },
   {
     title: "Interactive Games",
@@ -70,10 +76,13 @@ const resources = [
     description: "Fun games designed to boost mood and reduce anxiety",
     details: "6 games",
     icon: <FaGamepad className="text-pink-500 text-2xl" />,
+    route: "/interactive-games"
   },
 ];
 
 export default function Resources() {
+  const navigate = useNavigate();
+  
   return (
     <div
       className="relative min-h-screen overflow-x-hidden bg-cover bg-center bg-fixed"
@@ -129,7 +138,7 @@ export default function Resources() {
               <small className="text-gray-500 text-xs">{res.details}</small>
 
               <div className="mt-3 flex gap-2">
-                <button className="px-3 py-1.5 rounded-lg bg-violet-400 text-white hover:bg-violet-500 text-sm transition">
+                <button className="px-3 py-1.5 rounded-lg bg-violet-400 text-white hover:bg-violet-500 text-sm transition" onClick={() => navigate(res.route)}>
                   Start
                 </button>
                 <button className="px-3 py-1.5 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 text-sm transition">
